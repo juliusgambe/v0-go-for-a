@@ -1,16 +1,15 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { UserAvatar } from "@/components/ui/user-avatar"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { Heart, MessageSquare, Share2 } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { getPlaceholderAvatar } from "@/lib/avatar-utils"
 
 export interface QuestionPostProps {
   id: string
   author: {
     name: string
-    avatar: string
+    avatar?: string
   }
   timestamp: string
   subject: string
@@ -63,10 +62,7 @@ export function QuestionPost({
     <Card>
       <CardHeader className="pb-3">
         <div className="flex items-start gap-4">
-          <Avatar>
-            <AvatarImage src={author.avatar || getPlaceholderAvatar(author.name)} alt={author.name} />
-            <AvatarFallback>{author.name.charAt(0)}</AvatarFallback>
-          </Avatar>
+          <UserAvatar name={author.name} src={author.avatar} />
           <div className="flex-1 space-y-1">
             <div className="flex items-center justify-between">
               <div>

@@ -5,17 +5,16 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
-import { UserCard } from "@/components/user-card"
 import { Separator } from "@/components/ui/separator"
 import { Plus, X, Clock, Target, Users, BookOpen, Search } from "lucide-react"
-import { getPlaceholderAvatar } from "@/lib/avatar-utils"
+import { UserAvatar } from "@/components/ui/user-avatar"
 
 // Mock data for demonstration
 const friends = [
-  { name: "Alex Johnson", avatar: getPlaceholderAvatar("Alex Johnson"), subject: "Physics" },
-  { name: "Maria Garcia", avatar: getPlaceholderAvatar("Maria Garcia"), subject: "Computer Science" },
-  { name: "James Wilson", avatar: getPlaceholderAvatar("James Wilson"), subject: "Chemistry" },
-  { name: "Sarah Lee", avatar: getPlaceholderAvatar("Sarah Lee"), subject: "Biology" },
+  { name: "Alex Johnson", subject: "Physics" },
+  { name: "Maria Garcia", subject: "Computer Science" },
+  { name: "James Wilson", subject: "Chemistry" },
+  { name: "Sarah Lee", subject: "Biology" },
 ]
 
 export default function SetupPage() {
@@ -123,23 +122,25 @@ export default function SetupPage() {
                   </h3>
                   <div className="grid gap-2">
                     <div className="flex items-center justify-between rounded-md border p-2">
-                      <UserCard
-                        name="Alex Johnson"
-                        avatar={getPlaceholderAvatar("Alex Johnson")}
-                        subject="Physics"
-                        isCompact
-                      />
+                      <div className="flex items-center gap-2">
+                        <UserAvatar name="Alex Johnson" size="sm" />
+                        <div className="flex flex-col">
+                          <span className="text-sm font-medium">Alex Johnson</span>
+                          <span className="text-xs text-muted-foreground">Physics</span>
+                        </div>
+                      </div>
                       <Button variant="ghost" size="icon" className="h-8 w-8 text-rose-500">
                         <X className="h-4 w-4" />
                       </Button>
                     </div>
                     <div className="flex items-center justify-between rounded-md border p-2">
-                      <UserCard
-                        name="Maria Garcia"
-                        avatar={getPlaceholderAvatar("Maria Garcia")}
-                        subject="Computer Science"
-                        isCompact
-                      />
+                      <div className="flex items-center gap-2">
+                        <UserAvatar name="Maria Garcia" size="sm" />
+                        <div className="flex flex-col">
+                          <span className="text-sm font-medium">Maria Garcia</span>
+                          <span className="text-xs text-muted-foreground">Computer Science</span>
+                        </div>
+                      </div>
                       <Button variant="ghost" size="icon" className="h-8 w-8 text-rose-500">
                         <X className="h-4 w-4" />
                       </Button>
@@ -157,7 +158,13 @@ export default function SetupPage() {
                   <div className="grid gap-2">
                     {friends.slice(2).map((friend, index) => (
                       <div key={index} className="flex items-center justify-between rounded-md border p-2">
-                        <UserCard name={friend.name} avatar={friend.avatar} subject={friend.subject} isCompact />
+                        <div className="flex items-center gap-2">
+                          <UserAvatar name={friend.name} size="sm" />
+                          <div className="flex flex-col">
+                            <span className="text-sm font-medium">{friend.name}</span>
+                            <span className="text-xs text-muted-foreground">{friend.subject}</span>
+                          </div>
+                        </div>
                         <Button variant="ghost" size="icon" className="h-8 w-8 text-emerald-500">
                           <Plus className="h-4 w-4" />
                         </Button>

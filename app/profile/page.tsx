@@ -1,11 +1,11 @@
 import { LayoutWithSidebar } from "@/components/layout-with-sidebar"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { SubjectCard } from "@/components/subject-card"
 import { BarChart, Clock, Edit, Settings, Trophy, BookOpen, Award, Flame } from "lucide-react"
-import { getPlaceholderAvatar, getAvatarColor } from "@/lib/avatar-utils"
+import { getPlaceholderAvatar } from "@/lib/avatar-utils"
+import { UserAvatar } from "@/components/ui/user-avatar"
 
 // Mock data for demonstration
 const userData = {
@@ -29,13 +29,6 @@ const userData = {
 }
 
 export default function ProfilePage() {
-  const initials = userData.name
-    .split(" ")
-    .map((n) => n[0])
-    .join("")
-    .toUpperCase()
-    .substring(0, 2)
-
   return (
     <LayoutWithSidebar>
       <div className="container py-8">
@@ -43,10 +36,7 @@ export default function ProfilePage() {
           <Card>
             <CardContent className="p-6">
               <div className="flex flex-col md:flex-row gap-6 items-start">
-                <Avatar className="h-24 w-24">
-                  <AvatarFallback className={getAvatarColor(userData.name)}>{initials}</AvatarFallback>
-                  <AvatarImage src={userData.avatar || "/placeholder.svg"} alt={userData.name} />
-                </Avatar>
+                <UserAvatar name={userData.name} src={userData.avatar} size="xl" />
 
                 <div className="flex-1 space-y-2">
                   <div className="flex items-start justify-between">

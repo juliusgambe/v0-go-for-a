@@ -1,9 +1,9 @@
 import { LayoutWithSidebar } from "@/components/layout-with-sidebar"
 import { TimerProgress } from "@/components/timer-progress"
-import { UserCard } from "@/components/user-card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { getPlaceholderAvatar } from "@/lib/avatar-utils"
+import { UserAvatar } from "@/components/ui/user-avatar"
 
 // Mock data for demonstration
 const currentSession = {
@@ -75,13 +75,10 @@ export default function TimerPage() {
               <div className="flex items-center gap-4">
                 {currentSession.participants.map((participant) => (
                   <div key={participant.id} className="flex items-center gap-3">
-                    <UserCard
-                      name={participant.name}
-                      avatar={participant.avatar}
-                      subject={participant.subject}
-                      isCompact
-                      theme="light"
-                    />
+                    <div className="flex flex-col items-center">
+                      <UserAvatar name={participant.name} src={participant.avatar} size="md" />
+                      <span className="text-xs font-medium mt-1">{participant.name.split(" ")[0]}</span>
+                    </div>
                   </div>
                 ))}
               </div>

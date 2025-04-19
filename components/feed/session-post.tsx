@@ -1,15 +1,14 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { UserAvatar } from "@/components/ui/user-avatar"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { Clock, Heart, MessageSquare, Share2, Users } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { getPlaceholderAvatar } from "@/lib/avatar-utils"
 
 export interface SessionParticipant {
   id: string
   name: string
-  avatar: string
+  avatar?: string
   subject: string
   subjectKey?: string
 }
@@ -18,7 +17,7 @@ export interface SessionPostProps {
   id: string
   author: {
     name: string
-    avatar: string
+    avatar?: string
   }
   timestamp: string
   duration: number
@@ -67,10 +66,7 @@ export function SessionPost({
     <Card>
       <CardHeader className="pb-3">
         <div className="flex items-start gap-4">
-          <Avatar>
-            <AvatarImage src={author.avatar || getPlaceholderAvatar(author.name)} alt={author.name} />
-            <AvatarFallback>{author.name.charAt(0)}</AvatarFallback>
-          </Avatar>
+          <UserAvatar name={author.name} src={author.avatar} />
           <div className="flex-1 space-y-1">
             <div className="flex items-center justify-between">
               <div>
@@ -101,13 +97,7 @@ export function SessionPost({
                 return (
                   <div key={participant.id} className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <Avatar className="h-6 w-6">
-                        <AvatarImage
-                          src={participant.avatar || getPlaceholderAvatar(participant.name)}
-                          alt={participant.name}
-                        />
-                        <AvatarFallback>{participant.name.charAt(0)}</AvatarFallback>
-                      </Avatar>
+                      <UserAvatar name={participant.name} src={participant.avatar} size="sm" />
                       <span className="text-sm">{participant.name}</span>
                     </div>
                     <div

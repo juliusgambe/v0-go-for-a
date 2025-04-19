@@ -1,11 +1,11 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { UserAvatar } from "@/components/ui/user-avatar"
 import { cn } from "@/lib/utils"
 
 interface UserCardProps {
   name: string
-  avatar: string
+  avatar?: string
   subject: string
   university?: string
   hours?: number
@@ -44,21 +44,6 @@ const subjectColorsDark: Record<string, string> = {
   Psychology: "bg-pink-500/10 text-pink-400 border-pink-500/20",
 }
 
-function getAvatarColor(name: string): string {
-  const colors = [
-    "bg-red-500",
-    "bg-green-500",
-    "bg-blue-500",
-    "bg-yellow-500",
-    "bg-purple-500",
-    "bg-orange-500",
-    "bg-pink-500",
-    "bg-teal-500",
-  ]
-  const index = Math.abs(name.charCodeAt(0) % colors.length)
-  return colors[index]
-}
-
 export function UserCard({
   name,
   avatar,
@@ -69,13 +54,6 @@ export function UserCard({
   className,
   theme = "dark",
 }: UserCardProps) {
-  const initials = name
-    .split(" ")
-    .map((n) => n[0])
-    .join("")
-    .toUpperCase()
-    .substring(0, 2)
-
   const subjectColors = theme === "light" ? subjectColorsLight : subjectColorsDark
   const subjectColor =
     subjectColors[subject] ||
@@ -86,10 +64,7 @@ export function UserCard({
   if (isCompact) {
     return (
       <div className={cn("flex items-center gap-2", className)}>
-        <Avatar className="h-8 w-8">
-          <AvatarFallback className={getAvatarColor(name)}>{initials}</AvatarFallback>
-          <AvatarImage src={avatar || "/placeholder.svg"} alt={name} />
-        </Avatar>
+        <UserAvatar name={name} src={avatar} size="sm" />
         <div className="flex flex-col">
           <span className={cn("text-sm font-medium", theme === "light" ? "text-zinc-900" : "text-white")}>{name}</span>
           <Badge variant="outline" className={cn("text-xs", subjectColor)}>
@@ -104,10 +79,7 @@ export function UserCard({
     <Card className={cn("overflow-hidden", theme === "light" ? "border-zinc-200" : "border-zinc-800", className)}>
       <CardContent className="p-4">
         <div className="flex items-center gap-4">
-          <Avatar className="h-12 w-12">
-            <AvatarFallback className={getAvatarColor(name)}>{initials}</AvatarFallback>
-            <AvatarImage src={avatar || "/placeholder.svg"} alt={name} />
-          </Avatar>
+          <UserAvatar name={name} src={avatar} size="lg" />
           <div className="flex flex-col">
             <span className={cn("font-medium", theme === "light" ? "text-zinc-900" : "text-white")}>{name}</span>
             <span className={cn("text-sm", theme === "light" ? "text-zinc-600" : "text-muted-foreground")}>

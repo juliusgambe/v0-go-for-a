@@ -1,19 +1,18 @@
 "use client"
 
 import { useState } from "react"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { UserAvatar } from "@/components/ui/user-avatar"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { HelpCircle, Clock, Plus } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { getPlaceholderAvatar } from "@/lib/avatar-utils"
 
 interface CreatePostProps {
   user: {
     name: string
-    avatar: string
+    avatar?: string
   }
 }
 
@@ -59,10 +58,7 @@ export function CreatePost({ user }: CreatePostProps) {
     <Card className="overflow-hidden">
       <CardContent className="p-4">
         <div className="flex gap-3">
-          <Avatar className="h-9 w-9">
-            <AvatarImage src={user.avatar || getPlaceholderAvatar(user.name)} alt={user.name} />
-            <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
-          </Avatar>
+          <UserAvatar name={user.name} src={user.avatar} size="sm" />
 
           <div className="flex-1">
             <Textarea
